@@ -13,11 +13,6 @@ RUN unzip sonarscanner.zip
 RUN rm sonarscanner.zip
 RUN mv sonar-scanner-3.2.0.1227-linux sonar-scanner
 
-ENV SONAR_RUNNER_HOME=/root/sonar-scanner
-ENV PATH $PATH:/root/sonar-scanner/bin
-
-#COPY ./quality_gate/check_sonar_cube_result.sh ./check_sonar_cube_result.sh
-
 #   ensure Sonar uses the provided Java for musl instead of a borked glibc one
 RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner/bin/sonar-scanner
 
