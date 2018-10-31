@@ -33,7 +33,7 @@ RUN apk update \
 && bundle config build.nokogiri --use-system-libraries \
 && bundle config git.allow_insecure true \
 && gem install json --no-rdoc --no-ri \
-&& gem install rubocop  \
+&& gem install rubocop --no-rdoc --no-ri \
 \
 && gem cleanup \
 && apk del build-dependencies \
