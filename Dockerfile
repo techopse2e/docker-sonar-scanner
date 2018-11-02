@@ -16,29 +16,5 @@ RUN mv sonar-scanner-3.2.0.1227-linux sonar-scanner
 #   ensure Sonar uses the provided Java for musl instead of a borked glibc one
 RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner/bin/sonar-scanner
 
-RUN apk update \
-&& apk add ruby \
-           ruby-bigdecimal \
-           ruby-bundler \
-           ruby-io-console \
-           ruby-irb \
-           ca-certificates \
-           libressl \
-           less \
-&& apk add --virtual build-dependencies \
-           build-base \
-           ruby-dev \
-           libressl-dev \
-\
-&& bundle config build.nokogiri --use-system-libraries \
-&& bundle config git.allow_insecure true \
-&& gem install json --no-rdoc --no-ri \
-&& gem install rubocop --no-rdoc --no-ri \
-\
-&& gem cleanup \
-&& apk del build-dependencies \
-&& rm -rf /usr/lib/ruby/gems/*/cache/* \
-          /var/cache/apk/* \
-          /tmp/* \
-          /var/tmp/*
-
+ENV SONAR_RUNNER_HOME=/root/sonar-scanner
+ENV PATH $PATH:/root/sonar-scanner/bin
